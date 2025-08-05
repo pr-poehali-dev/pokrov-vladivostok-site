@@ -1,8 +1,16 @@
+import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Icon from "@/components/ui/icon";
+import MobileMenu from "@/components/MobileMenu";
 
 export default function Index() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
   const services = [
     {
       title: "Жилищное строительство",
@@ -76,12 +84,24 @@ export default function Index() {
             <a href="#materials" className="text-muted-foreground hover:text-primary transition-colors">Материалы</a>
             <a href="#contacts" className="text-muted-foreground hover:text-primary transition-colors">Контакты</a>
           </nav>
-          <Button className="hidden md:inline-flex">
-            <Icon name="Phone" size={16} className="mr-2" />
-            Связаться
-          </Button>
+          <div className="flex items-center gap-4">
+            <Button className="hidden md:inline-flex">
+              <Icon name="Phone" size={16} className="mr-2" />
+              Связаться
+            </Button>
+            <button
+              className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+              onClick={toggleMobileMenu}
+              aria-label="Открыть меню"
+            >
+              <Icon name="Menu" size={24} className="text-foreground" />
+            </button>
+          </div>
         </div>
       </header>
+
+      {/* Mobile Menu */}
+      <MobileMenu isOpen={isMobileMenuOpen} onToggle={toggleMobileMenu} />
 
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-slate-50 to-blue-50 py-20">
